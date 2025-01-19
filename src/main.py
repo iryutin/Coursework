@@ -1,83 +1,21 @@
 import datetime
-from views import greeting
+import json
+import os
+from views import get_greeting, get_cards, get_top_transactions, get_currency_conversion, get_stock_prices
+from src.file_rider import excel_file_reader
+from external_api import currency_conversion
 
 def main(data_time):
   date_obj = datetime.datetime.strptime(data_time, '%Y-%m-%d %H:%M:%S')
-  answer = {"greeting": greeting(date_obj.hour),
-  "cards": [
-    {
-      "last_digits": "5814",
-      "total_spent": 1262.00,
-      "cashback": 12.62
-    },
-    {
-      "last_digits": "7512",
-      "total_spent": 7.94,
-      "cashback": 0.08
-    }
-  ],
-  "top_transactions": [
-    {
-      "date": "21.12.2021",
-      "amount": 1198.23,
-      "category": "Переводы",
-      "description": "Перевод Кредитная карта. ТП 10.2 RUR"
-    },
-    {
-      "date": "20.12.2021",
-      "amount": 829.00,
-      "category": "Супермаркеты",
-      "description": "Лента"
-    },
-    {
-      "date": "20.12.2021",
-      "amount": 421.00,
-      "category": "Различные товары",
-      "description": "Ozon.ru"
-    },
-    {
-      "date": "16.12.2021",
-      "amount": -14216.42,
-      "category": "ЖКХ",
-      "description": "ЖКУ Квартира"
-    },
-    {
-      "date": "16.12.2021",
-      "amount": 453.00,
-      "category": "Бонусы",
-      "description": "Кешбэк за обычные покупки"
-    }
-  ],
-  "currency_rates": [
-    {
-      "currency": "USD",
-      "rate": 73.21
-    },
-    {
-      "currency": "EUR",
-      "rate": 87.08
-    }
-  ],
-  "stock_prices": [
-    {
-      "stock": "AAPL",
-      "price": 150.12
-    },
-    {
-      "stock": "AMZN",
-      "price": 3173.18
-    },
-    {
-      "stock": "GOOGL",
-      "price": 2742.39
-    },
-    {
-      "stock": "MSFT",
-      "price": 296.71
-    },
-    {
-      "stock": "TSLA",
-      "price": 1007.08
-    }
-  ]}
-  pass
+  file = os.getenv('DATA_FILE')
+  cards_namber = get_cards(excel_file_reader(file), date_obj)
+  top_transactions = get_top_transactions(excel_file_reader(file), date_obj)
+  answer = {"greeting": f"{get_greeting(date_obj.hour)}",
+            "cards": cards_namber,
+            "top_transactions": top_transactions,
+            "currency_rates": get_currency_conversion(),
+            "stock_prices": get_stock_prices()}
+  return json.dumps(answer, ensure_ascii=False)
+
+
+print(main('2025-01-17 00:00:00'))

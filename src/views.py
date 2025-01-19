@@ -1,30 +1,101 @@
 import datetime
 import os
+from external_api import currency_conversion, stock_prices
 
 from src.file_rider import excel_file_reader
 from dotenv import load_dotenv
 
-def greeting (time:int) -> str:
-    if time in [6,12]:
-        return 'Доброе утро'
-    elif time in [12,18]:
-        return 'Добрый день'
-    elif time in [18, 24]:
-        return 'Добрый вечер'
-    elif time in [0, 6]:
-        return 'Доброй ночи'
+def get_greeting (time:int) -> str:
+    greeting = ''
+    if time in range(6,12):
+        greeting = 'Доброе утро'
+    elif time in range(12,18):
+        greeting = 'Добрый день'
+    elif time in range(18,24):
+        greeting = 'Добрый вечер'
+    elif time in range(0,6):
+        greeting = 'Доброй ночи'
+    return greeting
 
-def cards(df_data_operations, date_now):
-    """Принемает датафрем фильтрует по дате и списанию затем выдаёт словарь с суммой расходов по картам"""
+def get_cards(df_data_operations, date_now) -> list[dict]:
+    """Принемает датафрем фильтрует по дате и списанию затем выдаёт словарь с суммой расходов, кэшбэком по картам"""
 
     date_beginning = date_now.replace(day=1, hour=0, minute = 0, second = 0)
     df_data_operations_by_date = df_data_operations[(date_now.strftime("%d.%m.%Y %H:%M:%S")>df_data_operations['Дата операции']) & (df_data_operations['Дата операции']>date_beginning.strftime("%d.%m.%Y %H:%M:%S"))]
     df_data_operations_pay = df_data_operations_by_date[df_data_operations_by_date['Сумма операции']<0]
     df_data_operations_pay = df_data_operations_pay.groupby('Номер карты').sum()
-    df_data_operations_pay = df_data_operations_pay.loc[:,['Сумма операции']]
-    return df_data_operations_pay
+    df_data_operations_pay = df_data_operations_pay.loc[:,['Сумма операции', 'Кэшбэк']]
+    df_card_head = df_data_operations_pay.head()
+    cards_namber = []
+    for card in df_card_head.index.values:
+        cards_namber.append({
+            "last_digits": f"{card}",
+            "total_spent": float(df_data_operations_pay.loc[card, 'Сумма операции']) * -1,
+            "cashback": float(df_data_operations_pay.loc[card, 'Кэшбэк'])
+        })
+    return cards_namber
 
-file = os.getenv('DATA_FILE')
-print(file)
+def get_top_transactions(df_data_operations, date_now) -> list[dict]:
+    """Принемает датафрем фильтрует по дате и списанию затем выдаёт словарь с топ 5 расходов, кэшбэком по картам"""
+    date_beginning = date_now.replace(day=1, hour=0, minute=0, second=0)
+    df_data_operations_by_date = df_data_operations[
+        (date_now.strftime("%d.%m.%Y %H:%M:%S") > df_data_operations['Дата операции']) & (
+                    df_data_operations['Дата операции'] > date_beginning.strftime("%d.%m.%Y %H:%M:%S"))]
+    df_data_operations_pay = df_data_operations_by_date[(df_data_operations_by_date['Сумма операции'] < 0) & (df_data_operations_by_date['Номер карты'] is not None)]
+    df_data_operations_pay = df_data_operations_pay.sort_values('Сумма операции')
+    df_data_operations_pay = df_data_operations_pay.loc[:, ['Номер карты','Сумма операции', 'Кэшбэк']]
+    df_data_operations_pay = df_data_operations_pay.dropna()
+    df_data_operations_top = df_data_operations_pay.iloc[0:5,:]
+    data_operations_top = df_data_operations_top.head()
+    top_transaction = []
+    for operations_namber in data_operations_top.index.values:
+        top_transaction.append({
+            "last_digits": df_data_operations_top.loc[operations_namber,'Номер карты'],
+            "total_spent": float(df_data_operations_top.loc[operations_namber,'Сумма операции']) * -1,
+            "cashback": float(df_data_operations_top.loc[operations_namber,'Кэшбэк'])
+        })
+    return top_transaction
+
+def get_currency_conversion()-> list[dict]:
+    return [
+    {
+      "currency": "USD",
+      "rate": currency_conversion("USD")
+    },
+    {
+      "currency": "EUR",
+      "rate": currency_conversion("EUR")
+    }
+  ]
+def get_stock_prices():
+    return [
+    {
+      "stock": "AAPL",
+      "price": stock_prices("AAPL")
+    },
+    {
+      "stock": "AMZN",
+      "price": stock_prices("AMZN")
+    },
+    {
+      "stock": "GOOGL",
+      "price": stock_prices("GOOGL")
+    },
+    {
+      "stock": "MSFT",
+      "price": stock_prices("MSFT")
+    },
+    {
+      "stock": "TSLA",
+      "price": stock_prices("TSLA")
+    }
+  ]
+
+
+#file = os.getenv('DATA_FILE')
+#print(file)
 #date_obj = datetime.datetime.now()
-#cards(excel_file_reader(file), date_obj)
+#data = get_cards(excel_file_reader(file), date_obj)
+#print(get_top_transactions(excel_file_reader(file),date_obj))
+#print(get_currency_conversion())
+#print(get_stock_prices())
