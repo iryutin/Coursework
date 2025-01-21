@@ -1,18 +1,20 @@
-import os
 import json
+import os
+
 import requests
 from dotenv import load_dotenv
 
 load_dotenv()
 
 
-def currency_conversion(source:str) -> float:
+def currency_conversion(source: str) -> float:
     """Запрос курса валюты в рублях API"""
     payload = {}
     url = f"https://api.apilayer.com/currency_data/live?source={source}&cies=RUB"
     headers = {"apikey": os.getenv("API_KEY_APILAYER")}
-    response = requests.request("GET", url, headers=headers, data = payload)
+    response = requests.request("GET", url, headers=headers, data=payload)
     return response.json()["quotes"][f"{source}RUB"]
+
 
 def stock_prices(symbols):
     """"""
