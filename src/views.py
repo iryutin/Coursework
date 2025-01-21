@@ -1,10 +1,13 @@
 import datetime
 import os
+from email.headerregistry import DateHeader
 
 from dotenv import load_dotenv
+from mypy.types_utils import AnyType
 
 from src.external_api import currency_conversion, stock_prices
 from src.file_rider import excel_file_reader
+import pandas as pd
 
 
 def get_greeting(time: int) -> str:
@@ -20,7 +23,7 @@ def get_greeting(time: int) -> str:
     return greeting
 
 
-def get_cards(df_data_operations, date_now) -> list[dict]:
+def get_cards(df_data_operations: pd.core.frame.DataFrame, date_now) -> list[dict]:
     """Принемает датафрем фильтрует по дате и списанию затем выдаёт словарь с суммой расходов, кэшбэком по картам"""
 
     date_beginning = date_now.replace(day=1, hour=0, minute=0, second=0)
@@ -44,7 +47,7 @@ def get_cards(df_data_operations, date_now) -> list[dict]:
     return cards_namber
 
 
-def get_top_transactions(df_data_operations, date_now) -> list[dict]:
+def get_top_transactions(df_data_operations: pd.core.frame.DataFrame, date_now) -> list[dict]:
     """Принемает датафрем фильтрует по дате и списанию затем выдаёт словарь с топ 5 расходов, кэшбэком по картам"""
     date_beginning = date_now.replace(day=1, hour=0, minute=0, second=0)
     df_data_operations_by_date = df_data_operations[

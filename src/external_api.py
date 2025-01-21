@@ -1,22 +1,22 @@
 import json
 import os
-
+from typing import Any
 import requests
 from dotenv import load_dotenv
 
 load_dotenv()
 
 
-def currency_conversion(source: str) -> float:
+def currency_conversion(source: str) -> Any:
     """Запрос курса валюты в рублях API"""
-    payload = {}
+    payload: dict = {}
     url = f"https://api.apilayer.com/currency_data/live?source={source}&cies=RUB"
     headers = {"apikey": os.getenv("API_KEY_APILAYER")}
     response = requests.request("GET", url, headers=headers, data=payload)
     return response.json()["quotes"][f"{source}RUB"]
 
 
-def stock_prices(symbols):
+def stock_prices(symbols:str) -> Any:
     """"""
     url = f"https://api.marketstack.com/v1/eod?access_key={os.getenv('API_KEY')}"
     querystring = {"symbols": f"{symbols}"}
