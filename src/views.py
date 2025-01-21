@@ -3,7 +3,7 @@ import os
 
 from dotenv import load_dotenv
 
-from external_api import currency_conversion, stock_prices
+from src.external_api import currency_conversion, stock_prices
 from src.file_rider import excel_file_reader
 
 
@@ -72,13 +72,15 @@ def get_top_transactions(df_data_operations, date_now) -> list[dict]:
 
 
 def get_currency_conversion() -> list[dict]:
+    """Удобно формирует ответ по курсу валюте"""
     return [
         {"currency": "USD", "rate": currency_conversion("USD")},
         {"currency": "EUR", "rate": currency_conversion("EUR")},
     ]
 
 
-def get_stock_prices():
+def get_stock_prices() -> list[dict]:
+    """Удобно формирует курсы указанных акций"""
     return [
         {"stock": "AAPL", "price": stock_prices("AAPL")},
         {"stock": "AMZN", "price": stock_prices("AMZN")},
