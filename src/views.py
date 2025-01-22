@@ -14,6 +14,7 @@ logger.addHandler(file_handler)
 
 
 def get_greeting(time: int) -> str:
+    """Принимает актуальное время и выдаёт приветствие"""
     logging.info("Начало работы функции")
     greeting = ""
     if time in range(6, 12):

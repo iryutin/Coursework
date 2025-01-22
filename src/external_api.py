@@ -26,7 +26,7 @@ def currency_conversion(source: str) -> Any:
 
 
 def stock_prices(symbols: str) -> Any:
-    """"""
+    """Запрос курса акций API"""
     url = f"https://api.marketstack.com/v1/eod?access_key={os.getenv('API_KEY')}"
     querystring = {"symbols": f"{symbols}"}
     try:
