@@ -7,7 +7,8 @@ from src.views import get_cards, get_currency_conversion, get_greeting, get_stoc
 
 
 def main(data_time: str) -> str:
-    """Основная функция принимает дату и выдаёт данные трат с карт, топ трат курсы валют и стоимость акций в данном месяце в json формате"""
+    """Основная функция принимает дату и выдаёт данные трат с карт,
+    топ трат курсы валют и стоимость акций в данном месяце в json формате"""
     date_obj = datetime.datetime.strptime(data_time, "%Y-%m-%d %H:%M:%S")
     file = os.getenv("DATA_FILE")
     cards_namber = get_cards(excel_file_reader(file), date_obj)

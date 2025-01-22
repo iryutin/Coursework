@@ -1,7 +1,9 @@
-from src.file_rider import excel_file_reader
 from unittest.mock import patch
 
 import pandas as pd
+
+from src.file_rider import excel_file_reader
+
 
 @patch("pandas.read_excel")
 def test_excel_file_reader(mock_get):
@@ -32,5 +34,5 @@ def test_excel_file_reader(mock_get):
             "to": ["Счет 64686473678894779589"],
         }
     )
-    df = excel_file_reader('')
+    df = excel_file_reader("")
     assert df.equals(test_df)

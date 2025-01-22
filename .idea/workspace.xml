@@ -4,10 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="38f9cfd5-8953-416b-875a-95afe95d9c1b" name="Changes" comment="Добавленны тесты file_rider">
+    <list default="true" id="38f9cfd5-8953-416b-875a-95afe95d9c1b" name="Changes" comment="Дописаны сервисы">
+      <change afterPath="$PROJECT_DIR$/src/decorators.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reports.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test_decorators.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test_reports.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_file-rider.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_file_rider.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/poetry.lock" beforeDir="false" afterPath="$PROJECT_DIR$/poetry.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/external_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/external_api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/file_rider.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/file_rider.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/services.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/conftest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_external_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_external_api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_file_rider.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_file_rider.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,15 +67,18 @@
   &quot;keyToString&quot;: {
     &quot;Python.external_api.executor&quot;: &quot;Run&quot;,
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.reports.executor&quot;: &quot;Run&quot;,
+    &quot;Python.services.executor&quot;: &quot;Run&quot;,
     &quot;Python.views.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/coursework_1/pythonProject1/data&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/coursework_1/pythonProject1/tests&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;Console&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\coursework_1\pythonProject1\tests" />
       <recent name="D:\coursework_1\pythonProject1\data" />
       <recent name="D:\coursework_1\pythonProject1" />
     </key>
@@ -142,7 +158,23 @@
       <option name="project" value="LOCAL" />
       <updated>1737476781002</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Дописаны тесты для main">
+      <option name="closed" value="true" />
+      <created>1737481276158</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1737481276158</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Дописаны сервисы">
+      <option name="closed" value="true" />
+      <created>1737488758544</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1737488758544</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -160,6 +192,8 @@
     <MESSAGE value="начало" />
     <MESSAGE value="Добавленны тесты api" />
     <MESSAGE value="Добавленны тесты file_rider" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавленны тесты file_rider" />
+    <MESSAGE value="Дописаны тесты для main" />
+    <MESSAGE value="Дописаны сервисы" />
+    <option name="LAST_COMMIT_MESSAGE" value="Дописаны сервисы" />
   </component>
 </project>

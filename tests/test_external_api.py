@@ -1,5 +1,6 @@
-from src.external_api import currency_conversion, stock_prices
 from unittest.mock import patch
+
+from src.external_api import currency_conversion, stock_prices
 
 
 @patch("requests.request")

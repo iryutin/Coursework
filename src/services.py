@@ -1,8 +1,15 @@
 import datetime
 import json
-from json import JSONDecoder, JSONEncoder
 
 from pandera.typing import DataFrame
+import logging
+
+logger = logging.getLogger("file_reader")
+logger.setLevel(logging.DEBUG)
+file_handler = logging.FileHandler("D:/my_project2/pythonProject1/logs/file_reader.log")
+file_formater = logging.Formatter("%(asctime)s %(name)s %(levelname)s: %(message)s")
+file_handler.setFormatter(file_formater)
+logger.addHandler(file_handler)
 
 
 def category_cashback(data: DataFrame, year: int, month: int) -> str:
@@ -17,4 +24,5 @@ def category_cashback(data: DataFrame, year: int, month: int) -> str:
     date_grupe_cashback_categories = date_cashback_categories.groupby("Категория").sum()
     date_final = date_grupe_cashback_categories.to_dict()
     date_final = date_final["Кэшбэк"]
+    logging.info("Всё ок")
     return json.dumps(date_final, ensure_ascii=False)

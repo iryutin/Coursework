@@ -1,7 +1,9 @@
-from src.views import get_greeting, get_cards, get_top_transactions
-import pytest
-import pandas as pd
 import datetime
+
+import pandas as pd
+
+from src.views import get_cards, get_greeting, get_top_transactions
+
 
 def test_get_greeting():
     assert get_greeting(6) == "Доброе утро"
@@ -16,17 +18,18 @@ def test_get_cards(test_dataframe):
     date_obj = datetime.datetime.strptime(data_time, "%Y-%m-%d %H:%M:%S")
     answer = [
         {
-                "last_digits": '*0473',
-                "total_spent": float('2570'),
-                "cashback": float('0'),
-            },
+            "last_digits": "*0473",
+            "total_spent": float("2570"),
+            "cashback": float("0"),
+        },
         {
-            "last_digits": '*8164',
-            "total_spent": float('3973'),
-            "cashback": float('10'),
-        }
+            "last_digits": "*8164",
+            "total_spent": float("3973"),
+            "cashback": float("10"),
+        },
     ]
     assert get_cards(df_test, date_obj) == answer
+
 
 def test_get_top_transactions(test_dataframe):
     df_test = pd.DataFrame(test_dataframe)
@@ -34,13 +37,14 @@ def test_get_top_transactions(test_dataframe):
     date_obj = datetime.datetime.strptime(data_time, "%Y-%m-%d %H:%M:%S")
     answer = [
         {
-            "last_digits": '*8164',
-            "total_spent": float('3973'),
-            "cashback": float('10'),
+            "last_digits": "*8164",
+            "total_spent": float("3973"),
+            "cashback": float("10"),
         },
         {
-            "last_digits": '*0473',
-            "total_spent": float('2570'),
-            "cashback": float('0'),
-        }
+            "last_digits": "*0473",
+            "total_spent": float("2570"),
+            "cashback": float("0"),
+        },
     ]
+    assert get_top_transactions(df_test, date_obj) == answer

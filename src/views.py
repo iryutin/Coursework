@@ -1,13 +1,16 @@
 import datetime
-import os
-from email.headerregistry import DateHeader
 
-from dotenv import load_dotenv
-from mypy.types_utils import AnyType
+import pandas as pd
 
 from src.external_api import currency_conversion, stock_prices
-from src.file_rider import excel_file_reader
-import pandas as pd
+import logging
+
+logger = logging.getLogger("file_reader")
+logger.setLevel(logging.DEBUG)
+file_handler = logging.FileHandler("D:/my_project2/pythonProject1/logs/file_reader.log")
+file_formater = logging.Formatter("%(asctime)s %(name)s %(levelname)s: %(message)s")
+file_handler.setFormatter(file_formater)
+logger.addHandler(file_handler)
 
 
 def get_greeting(time: int) -> str:
@@ -20,10 +23,11 @@ def get_greeting(time: int) -> str:
         greeting = "Добрый вечер"
     elif time in range(0, 6):
         greeting = "Доброй ночи"
+    logging.info("Всё ок")
     return greeting
 
 
-def get_cards(df_data_operations: pd.core.frame.DataFrame, date_now) -> list[dict]:
+def get_cards(df_data_operations: pd.core.frame.DataFrame, date_now: datetime) -> list[dict]:
     """Принемает датафрем фильтрует по дате и списанию затем выдаёт словарь с суммой расходов, кэшбэком по картам"""
 
     date_beginning = date_now.replace(day=1, hour=0, minute=0, second=0)
@@ -44,10 +48,11 @@ def get_cards(df_data_operations: pd.core.frame.DataFrame, date_now) -> list[dic
                 "cashback": float(df_data_operations_pay.loc[card, "Кэшбэк"]),
             }
         )
+    logging.info("Всё ок")
     return cards_namber
 
 
-def get_top_transactions(df_data_operations: pd.core.frame.DataFrame, date_now) -> list[dict]:
+def get_top_transactions(df_data_operations: pd.core.frame.DataFrame, date_now: datetime) -> list[dict]:
     """Принемает датафрем фильтрует по дате и списанию затем выдаёт словарь с топ 5 расходов, кэшбэком по картам"""
     date_beginning = date_now.replace(day=1, hour=0, minute=0, second=0)
     df_data_operations_by_date = df_data_operations[
@@ -71,6 +76,7 @@ def get_top_transactions(df_data_operations: pd.core.frame.DataFrame, date_now) 
                 "cashback": float(df_data_operations_top.loc[operations_namber, "Кэшбэк"]),
             }
         )
+    logging.info("Всё ок")
     return top_transaction
 
 
