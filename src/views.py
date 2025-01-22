@@ -14,6 +14,7 @@ logger.addHandler(file_handler)
 
 
 def get_greeting(time: int) -> str:
+    logging.info("Начало работы функции")
     greeting = ""
     if time in range(6, 12):
         greeting = "Доброе утро"
@@ -29,7 +30,7 @@ def get_greeting(time: int) -> str:
 
 def get_cards(df_data_operations: pd.core.frame.DataFrame, date_now: datetime) -> list[dict]:
     """Принемает датафрем фильтрует по дате и списанию затем выдаёт словарь с суммой расходов, кэшбэком по картам"""
-
+    logging.info("Начало работы функции")
     date_beginning = date_now.replace(day=1, hour=0, minute=0, second=0)
     df_data_operations_by_date = df_data_operations[
         (date_now.strftime("%d.%m.%Y %H:%M:%S") > df_data_operations["Дата операции"])
@@ -54,6 +55,7 @@ def get_cards(df_data_operations: pd.core.frame.DataFrame, date_now: datetime) -
 
 def get_top_transactions(df_data_operations: pd.core.frame.DataFrame, date_now: datetime) -> list[dict]:
     """Принемает датафрем фильтрует по дате и списанию затем выдаёт словарь с топ 5 расходов, кэшбэком по картам"""
+    logging.info("Начало работы функции")
     date_beginning = date_now.replace(day=1, hour=0, minute=0, second=0)
     df_data_operations_by_date = df_data_operations[
         (date_now.strftime("%d.%m.%Y %H:%M:%S") > df_data_operations["Дата операции"])
