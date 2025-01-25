@@ -1,10 +1,10 @@
 import datetime
+import logging
 from typing import Optional
 
 import pandas as pd
 
 from src.file_rider import excel_file_reader
-import logging
 
 logger = logging.getLogger("file_reader")
 logger.setLevel(logging.DEBUG)
@@ -12,6 +12,7 @@ file_handler = logging.FileHandler("D:/my_project2/pythonProject1/logs/file_read
 file_formater = logging.Formatter("%(asctime)s %(name)s %(levelname)s: %(message)s")
 file_handler.setFormatter(file_formater)
 logger.addHandler(file_handler)
+
 
 def spending_by_category(transactions: pd.DataFrame, category: str, date: Optional[str] = None) -> pd.DataFrame:
     """Функция возвращает траты по заданной категории за последние три месяца (от переданной даты)."""

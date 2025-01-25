@@ -1,8 +1,9 @@
+import logging
 import os
 from typing import Any
 
 import requests
-import logging
+from dotenv import load_dotenv
 
 logger = logging.getLogger("file_reader")
 logger.setLevel(logging.DEBUG)
@@ -10,6 +11,9 @@ file_handler = logging.FileHandler("D:/my_project2/pythonProject1/logs/file_read
 file_formater = logging.Formatter("%(asctime)s %(name)s %(levelname)s: %(message)s")
 file_handler.setFormatter(file_formater)
 logger.addHandler(file_handler)
+
+load_dotenv()
+
 
 def currency_conversion(source: str) -> Any:
     """Запрос курса валюты в рублях API"""

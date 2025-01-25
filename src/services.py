@@ -1,8 +1,8 @@
 import datetime
 import json
-
-from pandera.typing import DataFrame
 import logging
+
+from pandas import DataFrame
 
 logger = logging.getLogger("file_reader")
 logger.setLevel(logging.DEBUG)

@@ -1,9 +1,10 @@
 import datetime
+import logging
 
 import pandas as pd
+from pandas import DataFrame
 
 from src.external_api import currency_conversion, stock_prices
-import logging
 
 logger = logging.getLogger("file_reader")
 logger.setLevel(logging.DEBUG)
@@ -29,7 +30,7 @@ def get_greeting(time: int) -> str:
     return greeting
 
 
-def get_cards(df_data_operations: pd.core.frame.DataFrame, date_now: datetime) -> list[dict]:
+def get_cards(df_data_operations: DataFrame, date_now: datetime) -> list[dict]:
     """Принемает датафрем фильтрует по дате и списанию затем выдаёт словарь с суммой расходов, кэшбэком по картам"""
     logging.info("Начало работы функции")
     date_beginning = date_now.replace(day=1, hour=0, minute=0, second=0)
@@ -54,7 +55,7 @@ def get_cards(df_data_operations: pd.core.frame.DataFrame, date_now: datetime) -
     return cards_namber
 
 
-def get_top_transactions(df_data_operations: pd.core.frame.DataFrame, date_now: datetime) -> list[dict]:
+def get_top_transactions(df_data_operations: DataFrame, date_now: datetime) -> list[dict]:
     """Принемает датафрем фильтрует по дате и списанию затем выдаёт словарь с топ 5 расходов, кэшбэком по картам"""
     logging.info("Начало работы функции")
     date_beginning = date_now.replace(day=1, hour=0, minute=0, second=0)
