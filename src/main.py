@@ -3,10 +3,10 @@ import json
 import os
 
 from dotenv import load_dotenv
-
+from src.services import category_cashback
 from src.file_rider import excel_file_reader
 from src.views import get_cards, get_currency_conversion, get_greeting, get_stock_prices, get_top_transactions
-
+from src.reports import spending_by_category
 load_dotenv()
 
 
@@ -27,4 +27,17 @@ def main(data_time: str) -> str:
     return json.dumps(answer, ensure_ascii=False)
 
 
-print(main("2025-01-17 00:00:00"))
+#Вызов функции Вэб страница
+date = input("Введите дату формат %Y-%m-%d %H:%M:%S")
+main(date)
+
+#Вызов функции Сервисы
+year = int(input("Введите год"))
+month: int(input("Введите месяц"))
+file_operatin = excel_file_reader(os.getenv("DATA_FILE"))
+print(category_cashback(file_operatin, year, month))
+
+#Вызов отчёта
+date = input("Введите дату формат %Y-%m-%d %H:%M:%S")
+category = input("Ввидите категорию")
+spending_by_category(file_operatin, category, date)

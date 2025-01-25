@@ -3,8 +3,8 @@ import logging
 from typing import Optional
 
 import pandas as pd
+from src.decorators import log
 
-from src.file_rider import excel_file_reader
 
 logger = logging.getLogger("file_reader")
 logger.setLevel(logging.DEBUG)
@@ -13,7 +13,7 @@ file_formater = logging.Formatter("%(asctime)s %(name)s %(levelname)s: %(message
 file_handler.setFormatter(file_formater)
 logger.addHandler(file_handler)
 
-
+@log
 def spending_by_category(transactions: pd.DataFrame, category: str, date: Optional[str] = None) -> pd.DataFrame:
     """Функция возвращает траты по заданной категории за последние три месяца (от переданной даты)."""
     if date is None:
@@ -37,4 +37,4 @@ def spending_by_category(transactions: pd.DataFrame, category: str, date: Option
     return date_operations_pay_by_categories
 
 
-print(spending_by_category(excel_file_reader("D:/coursework_1/pythonProject1/data/operation.xls"), "Фастфуд"))
+#print(spending_by_category(excel_file_reader("D:/coursework_1/pythonProject1/data/operation.xls"), "Фастфуд"))

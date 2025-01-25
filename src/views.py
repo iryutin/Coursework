@@ -30,7 +30,7 @@ def get_greeting(time: int) -> str:
     return greeting
 
 
-def get_cards(df_data_operations: DataFrame, date_now: datetime) -> list[dict]:
+def get_cards(df_data_operations: DataFrame, date_now: datetime.datetime) -> list[dict]:
     """Принемает датафрем фильтрует по дате и списанию затем выдаёт словарь с суммой расходов, кэшбэком по картам"""
     logging.info("Начало работы функции")
     date_beginning = date_now.replace(day=1, hour=0, minute=0, second=0)
@@ -55,7 +55,7 @@ def get_cards(df_data_operations: DataFrame, date_now: datetime) -> list[dict]:
     return cards_namber
 
 
-def get_top_transactions(df_data_operations: DataFrame, date_now: datetime) -> list[dict]:
+def get_top_transactions(df_data_operations: DataFrame, date_now: datetime.datetime) -> list[dict]:
     """Принемает датафрем фильтрует по дате и списанию затем выдаёт словарь с топ 5 расходов, кэшбэком по картам"""
     logging.info("Начало работы функции")
     date_beginning = date_now.replace(day=1, hour=0, minute=0, second=0)
