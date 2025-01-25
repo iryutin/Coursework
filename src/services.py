@@ -4,9 +4,11 @@ import logging
 
 from pandas import DataFrame
 
+from src.config import LOG_FOLDER
+
 logger = logging.getLogger("file_reader")
 logger.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler("D:/my_project2/pythonProject1/logs/file_reader.log")
+file_handler = logging.FileHandler(f"{LOG_FOLDER}/services.log")
 file_formater = logging.Formatter("%(asctime)s %(name)s %(levelname)s: %(message)s")
 file_handler.setFormatter(file_formater)
 logger.addHandler(file_handler)

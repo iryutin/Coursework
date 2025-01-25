@@ -1,14 +1,15 @@
 import datetime
+import json
 import logging
 
-import pandas as pd
 from pandas import DataFrame
 
+from src.config import DATA_USER_SETTINGS, LOG_FOLDER
 from src.external_api import currency_conversion, stock_prices
 
 logger = logging.getLogger("file_reader")
 logger.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler("D:/my_project2/pythonProject1/logs/file_reader.log")
+file_handler = logging.FileHandler(f"{LOG_FOLDER}/views.log")
 file_formater = logging.Formatter("%(asctime)s %(name)s %(levelname)s: %(message)s")
 file_handler.setFormatter(file_formater)
 logger.addHandler(file_handler)
@@ -85,22 +86,23 @@ def get_top_transactions(df_data_operations: DataFrame, date_now: datetime.datet
 
 
 def get_currency_conversion() -> list[dict]:
-    """Удобно формирует ответ по курсу валюте"""
-    return [
-        {"currency": "USD", "rate": currency_conversion("USD")},
-        {"currency": "EUR", "rate": currency_conversion("EUR")},
-    ]
+    """Удобно формирует ответ по курсу валюте настройка идёт через файл user_settings.json"""
+    with open(DATA_USER_SETTINGS) as f:
+        data = json.load(f)
+    result = []
+    for data_currency in data["user_currencies"]:
+        result.append({"currency": data_currency, "rate": currency_conversion(data_currency)})
+    return result
 
 
 def get_stock_prices() -> list[dict]:
-    """Удобно формирует курсы указанных акций"""
-    return [
-        {"stock": "AAPL", "price": stock_prices("AAPL")},
-        {"stock": "AMZN", "price": stock_prices("AMZN")},
-        {"stock": "GOOGL", "price": stock_prices("GOOGL")},
-        {"stock": "MSFT", "price": stock_prices("MSFT")},
-        {"stock": "TSLA", "price": stock_prices("TSLA")},
-    ]
+    """Удобно формирует курсы указанных акций настройка идёт через файл user_settings.json"""
+    with open(DATA_USER_SETTINGS) as f:
+        data = json.load(f)
+    result = []
+    for data_stocks in data["user_stocks"]:
+        result.append({"stock": data_stocks, "price": stock_prices(data_stocks)})
+    return result
 
 
 # file = os.getenv('DATA_FILE')
