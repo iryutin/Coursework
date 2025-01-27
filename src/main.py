@@ -33,10 +33,10 @@ print(main(date))
 # Вызов функции Сервисы
 year = int(input("Введите год"))
 month = int(input("Введите месяц"))
-file_operatin = excel_file_reader(os.getenv("DATA_FILE"))
+file_operatin = excel_file_reader("DATA_FILE")
 print(category_cashback(file_operatin, year, month))
 
 # Вызов отчёта
 date = input("Введите дату формат %Y-%m-%d %H:%M:%S")
 category = input("Ввидите категорию")
-spending_by_category(file_operatin, category, date)
+print(spending_by_category(file_operatin, category, date))
