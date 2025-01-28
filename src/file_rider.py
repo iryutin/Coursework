@@ -1,10 +1,11 @@
 import logging
 
 import pandas as pd
+from src.config import LOG_FOLDER
 
 logger = logging.getLogger("file_reader")
 logger.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler("LOG_FOLDER")
+file_handler = logging.FileHandler(f"{LOG_FOLDER}/file_reader.log")
 file_formater = logging.Formatter("%(asctime)s %(name)s %(levelname)s: %(message)s")
 file_handler.setFormatter(file_formater)
 logger.addHandler(file_handler)

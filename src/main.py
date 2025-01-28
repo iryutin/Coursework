@@ -33,7 +33,7 @@ print(main(date))
 # Вызов функции Сервисы
 year = int(input("Введите год"))
 month = int(input("Введите месяц"))
-file_operatin = excel_file_reader("DATA_FILE")
+file_operatin = excel_file_reader(DATA_FILE)
 print(category_cashback(file_operatin, year, month))
 
 # Вызов отчёта
